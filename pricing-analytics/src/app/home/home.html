@@ -1,0 +1,86 @@
+<tabset>
+    <tab heading="PREDICTIVE CAB ANALYTICS" class="mt-2" (select)="onSelect($event)">
+        
+    </tab>
+    <tab heading="PREDICTIVE ANALYSIS WITH DATASET" class="mt-2" (select)="onSelect($event)">
+        <div>
+            <div style="display: block ;width:30%">
+                <canvas baseChart width [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                    [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            </div>
+            <button (click)="randomize()">Update</button>
+        </div>
+        <div style="display: block ;width:30%">
+            <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+        </div>
+    </tab>
+    <tab heading="TENTATIVE BID INPUTS" class="mt-2" (select)="onSelect($event)">
+
+        <div *ngIf="success" class="alert alert-success">Successfully Saved!</div>
+
+        <form [formGroup]="frm">
+            <div>
+                <div class="row">
+                        <div class="form-group col-md-7">
+                                <input placeholder="Enter source" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControlsrc">
+                              </div>
+                              <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                                <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                              </agm-map>
+                              <div class="form-group col-md-3">
+                                    <input placeholder="Enter Destination" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControldst">
+                                  </div>
+                                  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                                    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                                  </agm-map>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <input type="text" placeholder="Brand" class="form-control" formControlName="brand" />
+                        <span *ngIf="frm.controls.brand.touched && frm.controls.brand.errors?.required" class="text-danger">Required</span>
+                        <span *ngIf="frm.controls.brand.touched && frm.controls.brand.errors?.minlength" class="text-danger">Min 3 Chars</span>
+                        <span *ngIf="frm.controls.brand.touched && frm.controls.brand.errors?.maxlength" class="text-danger">Max 10 Chars</span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="text" placeholder="Brand-weight" class="form-control" formControlName="brandweight" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <input type="text" placeholder="Type to search.." class="form-control google-place-input" formControlName="model" />
+                        <span *ngIf="frm.controls.model.touched &&  frm.controls.model.errors?.required" class="text-danger">Required</span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="text" placeholder="source-weight" class="form-control" formControlName="modelweight" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        <input type="text" placeholder="Price" class="form-control" formControlName="price" />
+                        <span *ngIf="frm.controls.price.touched && frm.controls.price.errors?.required" class="text-danger">Required</span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="text" placeholder="price-weight" class="form-control" formControlName="Priceweight" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" formControlName="inStock" /> validation2
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Phone" class="form-control" formControlName="phone" />
+                    <span *ngIf="frm.controls.phone.touched && frm.controls.phone.errors?.pattern" class="text-danger">Invalid Phone number
+                    </span>
+                </div>
+                <div class="form-group">
+                    <button [disabled]="frm.invalid" class="btn btn-success" (click)="onSave()">Save Details</button>
+                </div>
+            </div>
+
+        </form>
+    </tab>
+    <tab heading="TENTATIVE BID CALCULATED" class="mt-2" (select)="onSelect($event)">
+        <h4>BID CALCULATED</h4>
+    </tab>
+</tabset>
